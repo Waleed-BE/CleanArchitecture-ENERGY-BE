@@ -12,5 +12,7 @@ namespace CleanArchitecture.Application.DTOs.Business
         public decimal Quantity { get; set; }
         public decimal TotalCost { get; set; }
         public DateTime CreatedDate { get; set; }
+        public DateTime? ExpenseForDate { get; set; }
+
     }
 }
