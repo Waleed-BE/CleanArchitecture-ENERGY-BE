@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using CleanArchitecture.Application.Interfaces;
 
 namespace CleanArchitecture.API.Controllers
 {
@@ -12,10 +13,12 @@ namespace CleanArchitecture.API.Controllers
     public class UserExpenseController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IGeminiService _geminiService;
 
-        public UserExpenseController(IMediator mediator)
+        public UserExpenseController(IMediator mediator, IGeminiService geminiService)
         {
             _mediator = mediator;
+            _geminiService = geminiService;
         }
 
         [HttpPost("Create-User-Expense")]
@@ -37,6 +40,13 @@ namespace CleanArchitecture.API.Controllers
         {
             var result = await _mediator.Send(updateUserExpenseCommand);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet("Get-AI-Response")]
+        public async Task<IActionResult> getAIResponse(Guid UserId)
+        {
+            var textPrompt = "Please analyze the below data based on date expenses and give valueable insights for cost saving must return data in html tags like list, texts and tables";
+            return Ok(await _geminiService.GenerateContentAsync(UserId, textPrompt));
         }
     }
 }

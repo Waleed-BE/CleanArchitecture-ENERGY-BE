@@ -1,6 +1,4 @@
 ﻿using CleanArchitecture.Application.DTOs.Auth;
-using CleanArchitecture.Application.Features.Auth.Commands;
-using System.Threading.Tasks;
 
 namespace CleanArchitecture.Application.Interfaces
 {
