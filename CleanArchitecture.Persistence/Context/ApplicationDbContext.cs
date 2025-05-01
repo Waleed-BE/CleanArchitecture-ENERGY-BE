@@ -29,8 +29,8 @@ namespace CleanArchitecture.Persistence.Context
         public DbSet<ExpenseCategory> TblExpenseCategories { get; set; }
         public DbSet<UserExpense> TblUserExpenses { get; set; }
         public DbSet<PurchaseHistory> TblPlanPurchaseHistory { get; set; }
-
-
+        public DbSet<Address> TblAddress { get; set; }
+        public DbSet<AddressExpenses> TblAddressExpenses { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

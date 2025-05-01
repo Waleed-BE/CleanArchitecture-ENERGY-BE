@@ -45,7 +45,7 @@ namespace CleanArchitecture.API.Controllers
         [HttpGet("Get-AI-Response")]
         public async Task<IActionResult> getAIResponse(Guid UserId)
         {
-            var textPrompt = "Please analyze the below data based on date expenses and give valueable insights for cost saving must return data in html tags like list, texts and tables";
+            var textPrompt = "Please analyze the following expense data based on dates and provide valuable insights focused on cost-saving opportunities. Return the output in clean, structured HTML using Tailwind CSS classes.\r\nUse visually appealing components such as:\r\nCards (div with padding, rounded corners, shadows) Headings (h2, h3 with text-xl, font-semibold) Lists (ul, li with list-disc, ml-4) Tables (with table-auto, border, text-left, etc.) Group insights into clear sections (e.g., Key Insights, Cost Breakdown, Recommendations), and ensure the layout is readable and modern like a professional web dashboard. do not provide the key improvments in the design and markup just keep it data oriented do not include Key improvements and explanations anywhere in the markup even outside the html tag and return the data only that is inside the html tag.";
             return Ok(await _geminiService.GenerateContentAsync(UserId, textPrompt));
         }
     }

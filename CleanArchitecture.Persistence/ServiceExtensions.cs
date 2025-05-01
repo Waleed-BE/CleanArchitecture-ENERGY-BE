@@ -30,6 +30,8 @@ namespace CleanArchitecture.Persistence
             services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
             services.AddScoped<IUserExpenseRepository, UserExpenseRepository>();
             services.AddScoped<IStripePurchasePlanRepository, StripePurchasePlanRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IAddressExpenseRepository, AddressExpenseRepository>();
 
 
 

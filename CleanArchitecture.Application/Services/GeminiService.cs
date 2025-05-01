@@ -38,7 +38,7 @@ namespace CleanArchitecture.Application.Services
                          TotalCost = g.Select(x => new
                          {
                              Quantity = x.Quantity,
-                             Price = x.TotalCost * x.Quantity, // Assuming total cost already includes price * quantity
+                             Price = x.TotalCost / x.Quantity, // Assuming total cost already includes price * quantity
                              TotalCost = x.TotalCost,
                              CreatedForDate = x.ExpenseForDate
                          }).ToList()

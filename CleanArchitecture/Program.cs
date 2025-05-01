@@ -63,7 +63,8 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 // Register services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGeminiService, GeminiService>();
-
+builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IAddressExpenseService, AddressExpenseService>();
 var app = builder.Build();
 
 

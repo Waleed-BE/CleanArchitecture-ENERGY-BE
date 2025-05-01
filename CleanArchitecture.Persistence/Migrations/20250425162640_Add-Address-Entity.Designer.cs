@@ -4,6 +4,7 @@ using CleanArchitecture.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanArchitecture.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250425162640_Add-Address-Entity")]
+    partial class AddAddressEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,52 +194,6 @@ namespace CleanArchitecture.Persistence.Migrations
                     b.HasKey("AddressId");
 
                     b.ToTable("TblAddress");
-                });
-
-            modelBuilder.Entity("CleanArchitecture.Domain.Entities.Business.AddressExpenses", b =>
-                {
-                    b.Property<Guid>("UserAddressExpenseId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AddressId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ExpenseForDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("ExpenseTypeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("RatePerUnit")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserAddressExpenseId");
-
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("ExpenseTypeId");
-
-                    b.ToTable("TblAddressExpenses");
                 });
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.Business.ExpenseCategory", b =>
@@ -551,25 +508,6 @@ namespace CleanArchitecture.Persistence.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("CleanArchitecture.Domain.Entities.Business.AddressExpenses", b =>
-                {
-                    b.HasOne("CleanArchitecture.Domain.Entities.Business.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CleanArchitecture.Domain.Entities.Business.ExpenseType", "ExpenseType")
-                        .WithMany()
-                        .HasForeignKey("ExpenseTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-
-                    b.Navigation("ExpenseType");
                 });
 
             modelBuilder.Entity("CleanArchitecture.Domain.Entities.Business.ExpenseType", b =>
