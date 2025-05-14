@@ -12,6 +12,7 @@ namespace CleanArchitecture.Application.Features.Business.ExpenseTypes.Commands
     {
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
+        public int Error { get; set; } = 200;
     }
 
     public class CreateExpenseTypeCommand : IRequest<CreateExpenseTypeResponse>
@@ -58,13 +59,13 @@ namespace CleanArchitecture.Application.Features.Business.ExpenseTypes.Commands
                 {
                     if(userRole.ToLower().Equals(_configuration["ROLES:User"].ToLower()) && expenseTypeCount == 4)
                     {
-                        return new CreateExpenseTypeResponse() { IsSuccess = false, Message = "User cannot add other expense type as its a basic user."};
+                        return new CreateExpenseTypeResponse() { IsSuccess = false, Message = "User cannot add other expense type as its a basic user.", Error = 400 };
                     }
 
 
                     if (userRole.ToLower().Equals(_configuration["ROLES:Premium"].ToLower()) && expenseTypeCount == 7)
                     {
-                        return new CreateExpenseTypeResponse() { IsSuccess = false, Message = "User cannot add other expense type as its a Premium user that can create 3 custom expense types." };
+                        return new CreateExpenseTypeResponse() { IsSuccess = false, Message = "User cannot add other expense type as its a Premium user that can create 3 custom expense types.", Error = 400 };
                     }
                 }
             }
@@ -73,7 +74,7 @@ namespace CleanArchitecture.Application.Features.Business.ExpenseTypes.Commands
             var isUnique = await _expenseTypeRepository.IsExpenseNameUniqueAsync(request.ExpenseName, loggedInUserId);
             if (!isUnique)
             {
-                return new CreateExpenseTypeResponse() { IsSuccess = false, Message = $"{request.ExpenseName} expense type is already present." };
+                return new CreateExpenseTypeResponse() { IsSuccess = false, Message = $"{request.ExpenseName} expense type is already present.", Error = 400 };
             }
 
             var expenseType = new ExpenseType
